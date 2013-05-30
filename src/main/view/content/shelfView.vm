@@ -1,0 +1,39 @@
+<script type="text/javascript">
+	var deleteBooks = function() {
+		var deleteForm = document.getElementById("bookListForm");
+		deleteForm.action = "/${it.contextRoot}/book/delete/";
+		deleteForm.submit();
+	};
+
+	var moveBooks = function() {
+		var moveForm = document.getElementById("bookListForm");
+		moveForm.action = "/${it.contextRoot}/book/move/";
+		moveForm.submit();
+	};
+</script>
+#set($shelf = ${it.shelf})
+#set($shelfId = ${shelf.shelfId})
+<h1>${shelf.name}</h1>
+#parse(${it.errorAreaPath})
+<a href="/${it.contextRoot}/shelf/editView/${shelfId}">編集</a><br/>
+<a href="/${it.contextRoot}/book/create/${shelfId}">本を追加する</a><br>
+<a href="javascript:deleteBooks()">本を削除する</a>
+<form id="bookListForm" action="" method="POST">
+	<input type="hidden" name="parentShelfId" value="${shelfId}" />
+	<select name="toShelfId">
+		#foreach($moveShelf in $it.moveShelfList)
+			<option value="${moveShelf.shelfId}">${moveShelf.name}</option>
+			
+		#end
+	</select>
+	<input type="button" value="移動" onclick="javascript:moveBooks()" />
+	<ol>
+		#foreach($book in $it.bookList)
+			<li>
+				<input type="checkbox" name="bookId" value="${book.bookId}" />
+				<a href="/${it.contextRoot}/book/id/${book.bookId}" />${book.title}</a>
+			</li>
+		#end
+	</ol>
+</form>
+<a href="/${it.contextRoot}">TOPに戻る</a>

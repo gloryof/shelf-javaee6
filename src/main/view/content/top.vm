@@ -1,0 +1,27 @@
+<script type="text/javascript">
+	var deleteShelfs = function() {
+		document.getElementById("shelfListForm").submit();
+	};
+</script>
+#parse(${it.errorAreaPath})
+<div>
+	<p>
+		<a href="/${it.contextRoot}/shelf/create">本棚を追加する</a>
+	</p>
+	<p>
+		<a href="javascript:deleteShelfs()">本棚を削除する</a>
+	</p>
+	<p>
+		<a href="/${it.contextRoot}/book/create/${it.getCreatingShelfId().value}">本を追加する</a>
+	</p>
+</div>
+<form id="shelfListForm" action="/${it.contextRoot}/shelf/delete" method="POST">
+	#foreach($shelf in $it.shelfInfoList)
+	<div>
+		<input type="checkbox" name="deleteShelfId" value="${shelf.shelfId}" />
+		<span>
+			<a href="/${it.contextRoot}/shelf/${shelf.shelfId}">${shelf.name}</a>
+		</span>
+	</div>
+	#end
+</form>

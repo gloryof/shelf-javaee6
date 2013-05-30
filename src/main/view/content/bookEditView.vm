@@ -1,0 +1,23 @@
+#set($book = $it.book)
+<div>
+	#parse(${it.errorAreaPath})
+	<form action="/${it.contextRoot}/book/editView/${book.bookId}" method="POST">
+		<input type="hidden" name="bookId" value="${book.bookId}" />
+		<table>
+			<tr>
+				<th>タイトル</th>
+				<td><input type="text" name="title" value="${book.title}" /></td>
+			</tr>
+			<tr>
+				<th>ISBNコード</th>
+				<td><input type="text" name="isbnCode" value="${book.isbnCode}" /></td>
+			</tr>
+			<tr>
+				<th>価格</th>
+				<td><input type="number" name="price" value="${book.price}" /></td>
+			</tr>
+		</table>
+		<input type="submit" value="更新" />
+	</form>
+	<a href="/${it.contextRoot}/book/id/${book.bookId}">戻る</a>
+</div>

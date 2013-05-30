@@ -1,0 +1,32 @@
+#set($bookList = ${it.bookList})
+#if($bookList.isEmpty())
+	<div>
+		対象の本がありません。
+	</div>
+#end
+#foreach($bookInfo in $bookList)
+	#set($book = $bookInfo.book)
+	<div>
+		<p>${bookInfo.title} <a href="/${it.contextRoot}/book/editView/${bookInfo.bookId}">編集</a></p>
+		#if($it.isViewBackLink() == false) 
+			<a href="/${it.contextRoot}/shelf/${bookInfo.parentShelfId}">この本の本棚を見る</a>
+		#end
+		<table>
+			<tr>
+				<th>ISBNコード</th>
+				<td>
+					<a href="/${it.contextRoot}/book/isbn/${bookInfo.isbnOnlyCode}">${bookInfo.isbnCode}</a>
+				</td>
+			</tr>
+			<tr>
+				<th>価格</th>
+				<td>${bookInfo.price}</td>
+			</tr>
+		</table>
+	</div>
+	#if($it.isViewBackLink())
+		<div>
+			<a href="/${it.contextRoot}/shelf/${bookInfo.parentShelfId}">戻る</a>
+		</div>
+	#end
+#end

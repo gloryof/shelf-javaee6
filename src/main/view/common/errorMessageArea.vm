@@ -1,0 +1,8 @@
+#set($errors = ${it.errors})
+#if($errors.hasError())
+	<li>
+		#foreach($error in $errors.toList())
+			<ul>${error.message}</ul>
+		#end
+	</li>
+#end

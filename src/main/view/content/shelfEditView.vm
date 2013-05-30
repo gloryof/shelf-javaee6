@@ -1,0 +1,22 @@
+#if(${it.updateMode} == true)
+	#set($actionPath = "/${it.contextRoot}/shelf/editView/${it.shelf.shelfId}")
+	#set($isViewBack = true)
+	#set($submitButton = "更新")
+#else
+	#set($actionPath = "/${it.contextRoot}/shelf/create")
+	#set($isViewBack = false)
+	#set($submitButton = "登録")
+#end
+<div>
+	#parse(${it.errorAreaPath})
+	<form action="${actionPath}" method="POST">
+		#if(${it.updateMode} == true)
+			<input type="hidden" name="shelfId" value="${it.shelf.shelfId}" />
+		#end
+		<input type="text" name="name" value="${it.shelf.name}" />
+		<input type="submit" value="${submitButton}" />
+	</form>
+</div>
+#if(${isViewBack} == true)
+<a href="/${it.contextRoot}/shelf/${it.shelf.shelfId}">戻る</a>
+#end
